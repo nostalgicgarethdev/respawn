@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "api/read.ts": {
+      "maxDuration": 15
+    },
+    "api/look.ts": {
+      "maxDuration": 10
+    }
+  }
+}
