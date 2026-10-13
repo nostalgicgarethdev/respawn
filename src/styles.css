@@ -352,3 +352,10 @@ footer p { margin: 0; max-width: 46rem; }
 }
 .targets .evidence li { grid-template-columns: 160px 1fr; }
 @media (max-width: 860px) { .targets .evidence li { grid-template-columns: 1fr; gap: 4px; } }
+
+.ca-strip { background: var(--ink); color: var(--paper); font-size: 12px; }
+.ca-inner { width: min(1120px, calc(100% - 32px)); margin: 0 auto; display: flex; align-items: center; gap: 12px; min-height: 34px; }
+.ca-label { color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; font-size: 11px; white-space: nowrap; }
+.ca-value { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: inherit; opacity: 0.85; }
+.ca-btn { background: transparent; border: 1px solid rgba(246,243,234,0.4); color: var(--paper); padding: 2px 8px; cursor: pointer; text-decoration: none; font-size: 11px; white-space: nowrap; }
+.ca-btn:hover { border-color: var(--accent); color: var(--accent); }

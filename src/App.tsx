@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react"
+
+const CA = "7eL9oJVQTjcKnw1Y1H8WFTkypWRxHvJ6fJczTqawpump"
 import { publicHttps } from "./account"
 import { CurveGame } from "./curveGame"
 import { readGame, type GameRead } from "./readGame"
@@ -52,6 +54,7 @@ export function App() {
 
   return (
     <>
+      <CaStrip />
       <header className="top">
         <a className="mark" href="#top">
           <svg className="mark-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="1.5" y="1.5" width="29" height="29" rx="3" fill="#d6ff3f" stroke="#16150f" strokeWidth="3"/><text x="16" y="25" textAnchor="middle" fontFamily="Instrument Serif, Georgia, serif" fontSize="26" fill="#16150f" transform="translate(32 0) scale(-1 1)">R</text></svg>
@@ -227,3 +230,30 @@ function EvidenceValue({ value }: { value: string }) {
 }
 
 
+
+function CaStrip() {
+  const [copied, setCopied] = useState(false)
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(CA)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1600)
+    } catch {
+      setCopied(false)
+    }
+  }
+  return (
+    <div className="ca-strip">
+      <div className="ca-inner">
+        <span className="ca-label">$Respawn CA</span>
+        <code className="ca-value" title={CA}>{CA}</code>
+        <button type="button" className="ca-btn" onClick={() => void copy()}>
+          {copied ? "Copied" : "Copy"}
+        </button>
+        <a className="ca-btn" href={`https://pump.fun/coin/${CA}`} target="_blank" rel="noreferrer">
+          pump.fun
+        </a>
+      </div>
+    </div>
+  )
+}
