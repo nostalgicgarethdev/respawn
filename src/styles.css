@@ -312,7 +312,26 @@ footer {
 }
 footer p { margin: 0; max-width: 46rem; }
 
+.intro { padding: 36px 0 40px; border-top: 1px solid var(--line); }
+.intro-big {
+  margin: 0;
+  max-width: 54rem;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(30px, 4.2vw, 46px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.intro-sub { margin: 20px 0 0; max-width: 42rem; font-size: 16px; color: var(--muted); }
+.steps h2, .faq h2 { padding-top: 22px; }
+.steps strong { font-size: 16px; }
+.steps.four ol { grid-template-columns: repeat(4, 1fr); }
+.faq { padding: 8px 0 48px; border-top: 1px solid var(--line); }
+.faq dl { margin: 18px 0 0; border-top: 1px solid var(--line); }
+.faq dt { padding: 16px 0 6px; font-size: 17px; font-weight: 500; }
+.faq dd { margin: 0; padding: 0 0 16px; max-width: 46rem; font-size: 15px; color: var(--muted); border-bottom: 1px solid var(--line); }
+
 @media (max-width: 860px) {
+  .steps.four ol { grid-template-columns: 1fr; }
   .lab, .lab-flip, .prompt-block, .steps ol, .evidence li { grid-template-columns: 1fr; }
   .lab-flip .cabinet { order: 2; }
   .steps li + li { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); }

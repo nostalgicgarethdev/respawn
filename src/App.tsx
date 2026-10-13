@@ -134,24 +134,52 @@ export function App() {
         {!read && (
           <>
             <p className="stage">The remake shows up here.</p>
-            <section className="steps" id="how">
+            <section className="intro" id="what">
+              <p className="kicker">What Respawn does</p>
+              <p className="intro-big">
+                Respawn reads a public web page, a pump.fun coin page, or a Solana address, and remakes it here as a sandbox you can play with.
+              </p>
+              <p className="intro-sub">
+                It only reads what is already public: the page itself and on-chain account data. It does not run the page's scripts, log in, or touch your wallet. Anything you do in the remake happens in your browser and nowhere else.
+              </p>
+            </section>
+            <section className="steps four" id="how">
+              <h2>How it works</h2>
               <ol>
                 <li>
                   <span>01</span>
                   <strong>Paste a public link.</strong>
-                  <p>A site, a coin page, or a Solana address.</p>
+                  <p>An https web page, a pump.fun coin page, or a Solana address.</p>
                 </li>
                 <li>
                   <span>02</span>
-                  <strong>The page reads it.</strong>
-                  <p>Title, text, headings, and the scripts that page loads.</p>
+                  <strong>Respawn reads it.</strong>
+                  <p>For a page: the title, description, headings, forms, and which scripts it loads. Scripts are listed, never run. For a coin or address: the public account data on Solana.</p>
                 </li>
                 <li>
                   <span>03</span>
-                  <strong>The remake is here.</strong>
-                  <p>A printed rule can be played. A normal page is rebuilt from the parts that were read.</p>
+                  <strong>It remakes it.</strong>
+                  <p>A pump.fun coin becomes its bonding curve, which you can buy and sell against with pretend SOL. A page that prints a speed rule becomes a small runner game. Any other page is rebuilt from its parts.</p>
+                </li>
+                <li>
+                  <span>04</span>
+                  <strong>You see the sources.</strong>
+                  <p>Every line in the remake shows where it was read from, with a Solscan link for on-chain data.</p>
                 </li>
               </ol>
+            </section>
+            <section className="faq" id="faq">
+              <h2>Questions</h2>
+              <dl>
+                <dt>Is this real trading?</dt>
+                <dd>No. The curve uses the coin's real numbers, but every buy and sell is local maths in your browser. No transaction is sent and no coin is minted.</dd>
+                <dt>Does it need my wallet?</dt>
+                <dd>No. There is no wallet connect and nothing to sign. Respawn never asks for keys or funds.</dd>
+                <dt>What links work?</dt>
+                <dd>Public https web pages, pump.fun coin links (pump.fun/coin/...), and Solana addresses. Private, local, or logged-in pages are refused.</dd>
+                <dt>Does it copy the site?</dt>
+                <dd>No. It reads the public parts of one page and shows a simple remake with sources. It does not download code, run scripts, or get around logins or protections.</dd>
+              </dl>
             </section>
           </>
         )}
