@@ -14,9 +14,9 @@ import {
   parseUpgradeable,
   publicHttps,
   shortName,
-} from "./account"
-import { curveAddress, parseCurve, PUMP, type Curve } from "./curve"
-import type { DropRow } from "./rules"
+} from "./account.js"
+import { curveAddress, parseCurve, PUMP, type Curve } from "./curve.js"
+import type { DropRow } from "./rules.js"
 
 const ENDPOINTS = ["https://solana-rpc.publicnode.com", "https://api.mainnet-beta.solana.com"]
 const SYSTEM_PROGRAM = "11111111111111111111111111111111"
@@ -35,7 +35,7 @@ export type Evidence = { label: string; value: string; source: string }
 
 export type ReadResult = {
   address: string
-  kind: "mint" | "program" | "token-account" | "account"
+  kind: "mint" | "program" | "token-account" | "account" | "wallet"
   name: string
   ticker: string
   every: number
@@ -68,7 +68,7 @@ export async function readTarget(input: string): Promise<ReadResult> {
   const address = extractAddress(input)
   if (!address) throw new Error("Paste a Solana address, or a link that contains one.")
   const account = await getAccount(address)
-  if (!account) throw new Error("No account at that address on mainnet.")
+  if (!account) throw new Error("Nothing lives at that address on mainnet right now. An empty wallet has no account to read.")
 
   if (account.owner === TOKEN_PROGRAM || account.owner === TOKEN_2022) {
     const mint = parseMint(account.data)
@@ -95,6 +95,24 @@ export async function readTarget(input: string): Promise<ReadResult> {
     { label: "owner", value: account.owner, source: "account owner" },
     { label: "size", value: `${account.space} bytes`, source: "account length" },
   ]
+  if (account.owner === SYSTEM_PROGRAM && account.space === 0) {
+    const lamports = await rpc("getBalance", [address]).catch(() => null)
+    const sol = typeof lamports === "number" ? (lamports / 1e9).toLocaleString("en-US", { maximumFractionDigits: 4 }) : "unknown"
+    return {
+      address,
+      kind: "wallet",
+      name: shortName(address, "WALLET"),
+      ticker: shortName(address.slice(0, 4), "WALLET"),
+      every: 10,
+      decimals: null,
+      canMint: false,
+      playable: false,
+      rows: null,
+      rowNote: `A plain Solana wallet holding ${sol} SOL. Wallets have no program or curve to rebuild, so this shows the public account fields. Paste a coin mint or pump.fun link to get a playable remake.`,
+      evidence: [{ label: "balance", value: `${sol} SOL`, source: "getBalance" }, ...evidence],
+      solscan: solscan(address),
+    }
+  }
   if (!SKIP_OWNERS.has(account.owner)) {
     const owner = await getAccountHead(account.owner).catch(() => null)
     if (owner?.executable) {
@@ -401,12 +419,12 @@ async function getAccount(address: string, slice?: number): Promise<Account | nu
   const value = await rpc("getAccountInfo", [address, config])
   if (!value || typeof value !== "object") return null
   const info = value as { owner?: string; executable?: boolean; space?: number; data?: [string, string] }
-  if (!info.data?.[0]) return null
+  if (!info.owner) return null
   return {
-    owner: info.owner ?? "",
+    owner: info.owner,
     executable: Boolean(info.executable),
     space: info.space ?? 0,
-    data: decodeBase64(info.data[0]),
+    data: info.data?.[0] ? decodeBase64(info.data[0]) : new Uint8Array(),
   }
 }
 

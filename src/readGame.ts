@@ -1,9 +1,9 @@
-import { extractAddress, formatSupply } from "./account"
-import { formatSol, type Curve } from "./curve"
-import type { Evidence, ReadResult } from "./readTarget"
-import { readBondingCurve, readTarget } from "./readTarget"
-import { pumpMint, type PageLook, type PagePart, type SpeedRule } from "./look"
-import type { DropRow } from "./rules"
+import { extractAddress, formatSupply } from "./account.js"
+import { formatSol, type Curve } from "./curve.js"
+import type { Evidence, ReadResult } from "./readTarget.js"
+import { readBondingCurve, readTarget } from "./readTarget.js"
+import { pumpMint, type PageLook, type PagePart, type SpeedRule } from "./look.js"
+import type { DropRow } from "./rules.js"
 
 export type GameRead = {
   address: string
@@ -27,12 +27,12 @@ export async function readGame(input: string): Promise<GameRead> {
   const mint = pumpMint(trimmed)
   const link = /^https:\/\//i.test(trimmed) ? trimmed : ""
   const bare = link ? null : extractAddress(trimmed)
-  if (!mint && !link && !bare) throw new Error("Paste a public link.")
+  if (!mint && !link && !bare) throw new Error("That is not a public https link or a Solana address. Try a web page, a pump.fun coin link, or a mint.")
 
   const chainInput = mint || bare || ""
   const [page, curvePack, chainPack] = await Promise.all([
     link ? readPage(link) : Promise.resolve(null),
-    mint ? readBondingCurve(mint).catch(() => null) : Promise.resolve(null),
+    (mint || bare) ? readBondingCurve((mint || bare) as string).catch(() => null) : Promise.resolve(null),
     readChain(chainInput),
   ])
   const chain = chainPack.chain
@@ -69,7 +69,7 @@ export async function readGame(input: string): Promise<GameRead> {
       canMint: false,
       rows: null,
       rowNote: finished
-        ? `The pump.fun curve for ${name} is complete. The coin account has no open reserves to trade.`
+        ? `${name} has graduated off its pump.fun curve, so there is nothing left to replay. Its final curve numbers are below.`
         : `The pump.fun curve for ${name} is open. Price is virtual SOL over virtual tokens. Buys stay in the browser.`,
       evidence,
       solscan: chain?.solscan || `https://solscan.io/account/${address}`,
@@ -109,13 +109,13 @@ export async function readGame(input: string): Promise<GameRead> {
 
   return {
     address,
-    kind: "page",
+    kind: chain?.kind ?? "page",
     name,
     ticker,
     every: 10,
     canMint: false,
     rows: null,
-    rowNote: page?.description || "This page didn't publish a mechanic to play.",
+    rowNote: page?.description || chain?.rowNote || "This page didn't publish a mechanic to play.",
     evidence,
     solscan: address ? `https://solscan.io/account/${address}` : "",
     play: "page",

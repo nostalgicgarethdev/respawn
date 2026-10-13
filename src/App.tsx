@@ -8,6 +8,7 @@ import { Runner } from "./runner"
 const SAMPLES = [
   ["A page", "https://example.com/"],
   ["A coin", "https://pump.fun/coin/EKtmPPLaCbEEKiwoHHtV7TsRsmPXs5CMGtQtZFSiinsc"],
+  ["Hacker News", "https://news.ycombinator.com/"],
 ] as const
 
 export function App() {
@@ -53,6 +54,7 @@ export function App() {
     <>
       <header className="top">
         <a className="mark" href="#top">
+          <svg className="mark-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="1.5" y="1.5" width="29" height="29" rx="3" fill="#d6ff3f" stroke="#16150f" strokeWidth="3"/><text x="16" y="25" textAnchor="middle" fontFamily="Instrument Serif, Georgia, serif" fontSize="26" fill="#16150f" transform="translate(32 0) scale(-1 1)">R</text></svg>
           Respawn
         </a>
         <nav>
@@ -68,14 +70,14 @@ export function App() {
       </header>
       <main id="top">
         <section className="hero">
-          <p className="kicker">{read ? read.kind : "Remake"}</p>
+          <p className="kicker">{read ? read.kind : "Reverse anything"}</p>
           <h1 className={read && title.length > 22 ? "long" : undefined}>
-            {read ? <em>{read.name}</em> : <em>A link.</em>}
+            {read ? <em>{read.name}</em> : <>Take it apart. <em>Put it back.</em></>}
           </h1>
           <p className="lede">
             {read
               ? read.rowNote
-              : "Paste a public link. The remake stays on this page."}
+              : "A small reverse engineering app for everyday stuff. Paste a public web page, a pump.fun coin or a Solana address. Respawn reads the public data and rebuilds it here as something you can poke at."}
           </p>
         </section>
 
@@ -98,6 +100,7 @@ export function App() {
             </button>
           </form>
           <div className="samples">
+            <span className="tag">Public data only</span>
             {SAMPLES.map(([label, address]) => (
               <button key={address} type="button" onClick={() => void run(address)} disabled={reading}>
                 {label}
@@ -133,7 +136,6 @@ export function App() {
 
         {!read && (
           <>
-            <p className="stage">The remake shows up here.</p>
             <section className="intro" id="what">
               <p className="kicker">What Respawn does</p>
               <p className="intro-big">

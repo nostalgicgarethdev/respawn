@@ -1,4 +1,4 @@
-import type { Evidence } from "./readTarget"
+import type { Evidence } from "./readTarget.js"
 
 export type Sheet = {
   title: string

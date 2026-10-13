@@ -1,4 +1,4 @@
-import { decodeBase58, findPda, formatSupply } from "./account"
+import { decodeBase58, findPda, formatSupply } from "./account.js"
 
 export const PUMP = "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
 const CURVE_DISC = 6966180631402821399n

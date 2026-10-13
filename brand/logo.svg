@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <rect id="bg" width="1024" height="1024" fill="#e6e1d4"/>
+  <g fill="none" stroke="#16150f" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M512 168 C 706 162, 860 318, 852 514 C 846 704, 694 858, 506 854 C 318 850, 168 700, 172 508 C 175 380, 236 280, 330 220" stroke-width="22"/>
+    <path d="M262 206 L 338 214 L 322 292" stroke-width="22"/>
+    <path d="M520 196 C 690 196, 826 330, 822 512" stroke-width="5" opacity="0.55"/>
+  </g>
+  <rect x="604" y="640" width="150" height="58" rx="3" fill="#d6ff3f" stroke="#16150f" stroke-width="5" transform="rotate(-4 679 669)"/>
+  <text x="679" y="682" text-anchor="middle" font-family="IBM Plex Mono" font-weight="500" font-size="30" letter-spacing="5" fill="#16150f" transform="rotate(-4 679 669)">AGAIN</text>
+  <text x="496" y="660" text-anchor="middle" font-family="Instrument Serif" font-style="italic" font-size="520" fill="#16150f">R</text>
+</svg>

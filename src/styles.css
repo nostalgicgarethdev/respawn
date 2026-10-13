@@ -51,7 +51,7 @@ a { color: inherit; }
 nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px 16px; }
 nav a { text-decoration: none; }
 
-.hero { padding: 64px 0 28px; }
+.hero { padding: 72px 0 36px; }
 .kicker {
   margin: 0 0 12px;
   letter-spacing: 0.14em;
@@ -67,6 +67,16 @@ h1 {
   letter-spacing: -0.03em;
 }
 h1 em { font-style: italic; }
+main > .hero h1:not(.long) { max-width: 11ch; }
+.hero h1 em { box-shadow: inset 0 -0.2em 0 var(--accent); }
+.hero .lede { font-size: 18px; max-width: 40rem; }
+.mark { display: inline-flex; align-items: center; gap: 10px; }
+.mark-icon { width: 28px; height: 28px; }
+.reader .query { min-height: 56px; font-size: 16px; border: 2px solid var(--ink); background: var(--paper); padding: 0 16px; }
+.reader .btn.solid { background: var(--accent); color: var(--ink); border: 2px solid var(--ink); min-height: 56px; padding: 0 26px; font-size: 15px; box-shadow: 4px 4px 0 var(--ink); }
+.reader .btn.solid:active { transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--ink); }
+.tag { display: inline-block; padding: 3px 8px; background: var(--accent); border: 1.5px solid var(--ink); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; transform: rotate(-2deg); margin-right: 6px; }
+.intro { margin-top: 36px; }
 h1.long { font-size: clamp(36px, 6vw, 72px); line-height: 0.95; }
 h2 {
   margin: 0 0 10px;
@@ -340,3 +350,5 @@ footer p { margin: 0; max-width: 46rem; }
   h1.long { font-size: 40px; }
   .crate-last { font-size: 40px; }
 }
+.targets .evidence li { grid-template-columns: 160px 1fr; }
+@media (max-width: 860px) { .targets .evidence li { grid-template-columns: 1fr; gap: 4px; } }
